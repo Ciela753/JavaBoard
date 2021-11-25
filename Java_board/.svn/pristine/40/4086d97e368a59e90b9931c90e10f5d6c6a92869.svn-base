@@ -1,0 +1,13 @@
+package service;
+
+import java.util.List;
+
+import vo.BoardVo;
+
+public interface BoardService {
+	public void register(BoardVo boardVo);
+	public BoardVo get(Long bno);
+	public boolean modify(BoardVo boardVo);
+	public boolean remove(Long bno);
+	public List<BoardVo> getList();
+}

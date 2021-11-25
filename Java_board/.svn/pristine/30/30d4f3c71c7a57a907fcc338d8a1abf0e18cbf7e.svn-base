@@ -1,0 +1,205 @@
+package main;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
+
+import service.BoardService;
+import service.BoardServiceImpl;
+import vo.BoardVo;
+
+public class Main{
+//	void create() {
+//		Scanner sc = new Scanner(System.in); 
+//		System.out.println("============게시글 작성===========");
+//		System.out.println("작성할 게시글의 제목: ");
+//		String title = sc.nextLine();
+//		System.out.println("작성할 게시글의 내용");
+//		String content = sc.nextLine();
+//		System.out.println("작성자 : ");
+//		String writer = sc.nextLine();
+//		
+//		
+//		list.add(new BoardVo(i++, title, content, writer, "2021-11-23"));
+//	}
+//	
+//	BoardVo read(int bno) {
+//		for(int i=0; i<list.size(); i++) {
+//			if(bno == list.get(i).getBno()) {
+//				return list.get(i);
+//			}
+//		}
+//		return null;
+//	}
+//	
+//	void update(int bno) {
+//		Scanner sc = new Scanner(System.in); 
+//		System.out.println("============게시글 수정===========");
+//		System.out.println("수정할 게시글의 제목 : ");
+//		String title = sc.nextLine();
+//		
+//		System.out.println("수정할 게시글의 내용");
+//		String content =sc.nextLine();
+//		
+//		for(int i=0; i<list.size(); i++) {
+//			if(bno == list.get(i).getBno()) {
+//				
+//			}
+//		}
+//	}
+//	
+//	void delete() {
+//		
+//	}
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		List<BoardVo> list = new ArrayList<BoardVo>();
+		for(int i=0; i<10; i++) {
+			list.add(new BoardVo(i, "title"+i,"content"+i, "writer"+i, "2021-11-23"));
+		}
+		
+		
+		while(true) {
+			System.out.println("===========게시글 리스트==========");
+			System.out.println("1.상세조회 2.등록 3.페이지");
+			System.out.println("번호    제목   작성자   작성일");
+//			System.out.println("274  ㅁㄴㅇㄹ5 admin99 2021-11-23");
+//			System.out.println("273  ㅁㄴㅇㄹ4 admin99 2021-11-23");
+//			System.out.println("272  ㅁㄴㅇㄹ3 admin99 2021-11-23");
+//			System.out.println("271  ㅁㄴㅇㄹ2 admin99 2021-11-23");
+//			System.out.println("270  ㅁㄴㅇㄹ1 admin99 2021-11-23");
+		
+			for(int i=0; i<list.size(); i++) {
+				System.out.println(list.get(i));
+			}
+			
+			String order = sc.nextLine();
+			int orderInt = Integer.parseInt(order);
+			
+			if(orderInt == 1){
+				for(int i=0; i<list.size(); i++) {
+					System.out.println(list.get(i));
+				}
+				System.out.println("상세조회할 게시글 번호 : ");
+				String bno = sc.nextLine();
+				int bnoP = Integer.parseInt(bno);
+				
+				System.out.println("==========게시글 상세 페이지============");
+				System.out.println("========="+ list.get(bnoP).getBno() +"==========");
+				System.out.println("============="+list.get(bnoP).getTitle()+"============");
+				System.out.println("============="+list.get(bnoP).getWiter()+"============");
+				System.out.println("=                              =");
+				System.out.println("=                              =");
+				System.out.println("=    "+list.get(bnoP).getContent()+"=");
+				System.out.println("=                              =");
+				System.out.println("=                              =");
+				System.out.println("================================");
+				System.out.println("");
+				System.out.println("1.수정 2.삭제 3.리스트");
+				
+								
+				String order2 = sc.nextLine();
+				int order2Int = Integer.parseInt(order2);
+				if(order2Int == 1) {
+					System.out.println("제목 수정하기 : ");
+					String title = sc.nextLine();
+					
+					System.out.println("내용 수정하기 : ");
+					String content = sc.nextLine();
+					
+					
+					System.out.println("=======게시글 수정 페이지========");
+					System.out.println("========="+ list.get(bnoP).getBno() +"==========");
+					System.out.println("============="+title+"============");
+					System.out.println("============="+list.get(bnoP).getWiter()+"============");
+					System.out.println("=                              =");
+					System.out.println("=                              =");
+					System.out.println("=    "+content+"               =");
+					System.out.println("=                              =");
+					System.out.println("=                              =");
+					System.out.println("================================");
+					System.out.println("1.등록 2.삭제 3.리스트로 돌아가기");
+					
+					String order3 = sc.nextLine();
+					int order3Int = Integer.parseInt(order3);
+					
+					if(order3Int == 1) {
+						list.get(bnoP).setTitle(title);
+						list.get(bnoP).setContent(content);
+						continue;
+						
+					} else if(order3Int == 2) {
+						System.out.println("=====게시글 삭제 페이지=====");
+						
+						System.out.println("삭제할 게시글 번호 : ");
+						String bnoDel = sc.nextLine();
+						int bnoDelP = Integer.parseInt(bnoDel);
+						list.remove(bnoDelP);
+						
+						System.out.println("삭제되었습니다.");
+						continue;
+					} else {
+						continue;
+					}
+				} else if(order2Int == 2) {
+					System.out.println("=====게시글 삭제 페이지=====");
+					System.out.println("삭제할 게시글 번호 : ");
+					String bnoDel = sc.nextLine();
+					int bnoDelP = Integer.parseInt(bnoDel);
+					list.remove(bnoDelP);
+					
+					System.out.println("삭제되었습니다.");
+					continue;
+				} else {
+					System.out.println("==========게시글 리스트==========");
+					continue;
+				}
+			} else {
+				System.out.println("==========게시물 등록============");
+				
+				System.out.println("등록할 게시물의 제목 : ");
+				String title = sc.nextLine();
+				
+				System.out.println("등록할 게시물의 내용 : ");
+				String content = sc.nextLine();
+				
+				System.out.println("글쓴이 이름 : ");
+				String writer = sc.nextLine();
+				
+				int bno = list.size();
+				
+				System.out.println("========="+bno+"=========");
+				System.out.println("============="+title+"============");
+				System.out.println("============="+writer+"============");
+				System.out.println("=                              =");
+				System.out.println("=                              =");
+				System.out.println("=      "+content+"             =");
+				System.out.println("=                              =");
+				System.out.println("=                              =");
+				System.out.println("================================");
+				
+				
+				System.out.println("1.등록하기 2.리스트로 돌아가기");
+				
+				String order4 = sc.nextLine();
+				int order4P = Integer.parseInt(order4);
+				
+				if(order4P == 1) {
+					list.add(new BoardVo(bno++, title, content, writer, "2021-11-23"));
+					continue;
+				} else {
+					continue;
+				}
+			}
+			
+		}
+//		String str = "게시글생성페이지";
+		
+//		String sub = str.substring(3);
+//		System.out.println(sub);
+		
+		
+	}
+}

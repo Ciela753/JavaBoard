@@ -1,0 +1,66 @@
+package vo;
+
+public class BoardVo {
+	int bno;
+	String title;
+	String content;
+	String witer;
+	String regDate;
+	
+	public BoardVo(int bno, String title, String content, String witer, String regDate) {
+		this.bno = bno;
+		this.title = title;
+		this.content = content;
+		this.witer = witer;
+		this.regDate = regDate;
+	}
+
+	public int getBno() {
+		return bno;
+	}
+
+	public void setBno(int bno) {
+		this.bno = bno;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getWiter() {
+		return witer;
+	}
+
+	public void setWiter(String witer) {
+		this.witer = witer;
+	}
+
+	public String getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
+
+	@Override
+	public String toString() {
+		return "BoardVo [bno=" + bno + ", title=" + title + ", content=" + content + ", witer=" + witer + ", regDate="
+				+ regDate + "]";
+	}
+	
+	
+	
+}

@@ -1,0 +1,54 @@
+package service;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import vo.BoardVo;
+import util.DBConn;
+
+public class BoardServiceImpl implements BoardService {
+	private List<BoardVo> list = new ArrayList<BoardVo>();
+	
+	{
+		list.add(new BoardVo(1L, "제목", "내용", "작성자", "21/11/24"));
+		list.add(new BoardVo(2L, "제목", "내용", "작성자", "21/11/24"));
+		list.add(new BoardVo(3L, "제목", "내용", "작성자", "21/11/24"));
+	}
+	
+
+	@Override
+	public void register(BoardVo boardVo) {
+		list.add(boardVo);
+	}
+
+	@Override
+	public BoardVo get(Long bno) {
+		for(int i=0; i<list.size(); i++) {
+			if(bno == list.get(i).getBno())
+				return list.get(i);
+		}
+		return null;
+	}
+
+	@Override
+	public boolean modify(BoardVo boardVo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean remove(Long bno) {
+		return list.remove(get(bno));
+	}
+
+	@Override
+	public List<BoardVo> getList() {
+		// TODO Auto-generated method stub
+		return list;
+	}
+}

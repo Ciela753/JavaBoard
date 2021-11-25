@@ -1,0 +1,83 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import util.DBConn;
+import vo.BoardVo;
+
+public class BoardDao {
+	private DataSource dataSource;
+	//db커넥션 생성
+	private Connection connection = DBConn.getConnection();
+	{
+		// 1. conn 취득
+		// 2. DML문장 생성 > 실행
+		// 3. (Select) ResultSet 결과집합을 취득
+	}
+	
+	public Long insert(BoardVo boardVo) {
+		Long bno = null;
+		try {
+			//글번호를 먼저 발급
+			connection.setAutoCommit(false);
+			
+			//결과 집합 rs에 쿼리실행 결과를 저장
+			ResultSet rs = connection.prepareStatement("SELECT SEQ_BOARD.NEXTVAL FROM DUAL").executeQuery();
+			//위의 쿼리문이 정상적으로 실행되면 참
+			rs.next();
+			//결과 집합 rs에서 첫번째 컬럼 값을 가져온다.
+			bno = rs.getLong(1);
+			
+			//글 작성
+			PreparedStatement pstmt = connection.prepareStatement("INSERT INTO JAVABOARD.TBL_BOARD (BNO, TITLE, CONTENT, ID, REGDATE) VALUES (?, ?, ?, ?, ?)");
+			int idx = 1;
+			pstmt.setLong(idx++, bno);
+			pstmt.setString(idx++, boardVo.getTitle());
+			pstmt.setString(idx++, boardVo.getContent());
+			pstmt.setString(idx++, boardVo.getWriter());
+			pstmt.setString(idx++, boardVo.getRegDate());
+			
+			//db에 결과 저장
+			pstmt.executeUpdate();
+			//db커밋
+			connection.commit();
+			//자동 커밋 모드 켜기
+			connection.setAutoCommit(true);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return bno;
+	}
+	
+	
+	public static void main(String[] args) {
+		BoardDao dao = new BoardDao();
+//		Long bno =	new BoardDao().insert(new BoardVo(bno, "Dao main에서 작성된 글 제목", "Do main에서 작성된 글내용", "babamba", "2021-11-24"));
+//		//단일 조회 테스트
+//		System.out.println(dao.read(bno));
+		
+		//페이지
+//		dao.list(new Criteria(1, 10)).forEach(System.out::println);
+//		List<BoardVo> list = dao.list(new Criteria(2, 20));
+//		for(BoardVo m : list) {
+//			System.out.println(m);
+//		}
+//		
+//				
+//		System.out.println(dao.getCount());
+		//목록 조회 테스트
+//		System.out.println(dao.read(1L));
+	}
+	
+	public BoardVo read(Long bno) {
+		BoardVo boardVo = null;
+		
+		return boardVo;
+	}
+}

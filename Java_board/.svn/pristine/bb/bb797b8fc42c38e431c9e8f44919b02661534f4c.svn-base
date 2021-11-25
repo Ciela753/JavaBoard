@@ -1,0 +1,134 @@
+package service;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import vo.BoardVo;
+import util.DBConn;
+
+public class BoardServiceImpl implements BoardService {
+	private Scanner sc = new Scanner(System.in);
+	private List<BoardVo> list = new ArrayList<BoardVo>();
+	
+	public BoardVo findBy(int bno) {
+		for(int i=0; i<list.size(); i++) {
+			if(bno == list.get(i).getBno())
+				return list.get(i);
+		}
+		return null;
+	}
+	
+	@Override
+	public void register() {
+		System.out.println("==========게시물 등록============");
+		
+		System.out.println("등록할 게시물의 제목 : ");
+		String title = sc.nextLine();
+		
+		System.out.println("등록할 게시물의 내용 : ");
+		String content = sc.nextLine();
+		
+		System.out.println("글쓴이 이름 : ");
+		String writer = sc.nextLine();
+		
+		int bno = list.size();
+		
+		System.out.println("========="+bno+"=========");
+		System.out.println("============="+title+"============");
+		System.out.println("============="+writer+"============");
+		System.out.println("=                              =");
+		System.out.println("=                              =");
+		System.out.println("=      "+content+"             =");
+		System.out.println("=                              =");
+		System.out.println("=                              =");
+		System.out.println("================================");
+		
+		
+		System.out.println("1.등록하기 2.리스트로 돌아가기");
+		
+		String order4 = sc.nextLine();
+		int order4P = Integer.parseInt(order4);
+		
+		if(order4P == 1) {
+			list.add(new BoardVo(bno++, title, content, writer, "2021-11-24"));			
+		} 
+	}
+
+	@Override
+	public void get(int bno) {
+		BoardVo bnoFindBy = findBy(bno);
+		
+		System.out.println("==========게시글 상세 페이지============");
+		System.out.println("========="+bnoFindBy.getBno()+"==========");
+		System.out.println("============="+bnoFindBy.getTitle()+"============");
+		System.out.println("============="+bnoFindBy.getWiter()+"============");
+		System.out.println("=                              =");
+		System.out.println("=                              =");
+		System.out.println("=    "+bnoFindBy.getContent()+"=");
+		System.out.println("=                              =");
+		System.out.println("=                              =");
+		System.out.println("================================");
+		System.out.println("");
+	}
+
+	@Override
+	public boolean modify(BoardVo boardVo) {
+		System.out.println("제목 수정하기 : ");
+		String title = sc.nextLine();
+		
+		System.out.println("내용 수정하기 : ");
+		String content = sc.nextLine();
+		
+		
+		System.out.println("=======게시글 수정 페이지========");
+		System.out.println("========="+ boardVo.getBno() +"==========");
+		System.out.println("============="+title+"============");
+		System.out.println("============="+boardVo.getWiter()+"============");
+		System.out.println("=                              =");
+		System.out.println("=                              =");
+		System.out.println("=    "+content+"               =");
+		System.out.println("=                              =");
+		System.out.println("=                              =");
+		System.out.println("================================");
+		System.out.println("1.등록 2.삭제 3.리스트로 돌아가기");
+		
+		String order3 = sc.nextLine();
+		int order3Int = Integer.parseInt(order3);
+		
+		if(order3Int == 1) {
+			boardVo.setTitle(title);
+			boardVo.setContent(content);
+			return true;
+		} else if (order3Int == 2) {
+			list.remove(boardVo.getBno());
+			return false;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean remove(int bno) {
+		System.out.println("=====게시글 삭제 페이지=====");
+		
+		System.out.println("삭제할 게시글 번호 : ");
+		String bnoDel = sc.nextLine();
+		int bnoDelP = Integer.parseInt(bnoDel);
+		list.remove(bnoDelP);
+		
+		System.out.println("삭제되었습니다.");
+		return false;
+	}
+
+	@Override
+	public List<BoardVo> getList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

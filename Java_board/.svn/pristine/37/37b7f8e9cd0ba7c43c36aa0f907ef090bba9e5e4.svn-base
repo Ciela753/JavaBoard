@@ -1,0 +1,19 @@
+package dao;
+
+import java.sql.Connection;
+
+import javax.sql.DataSource;
+
+import util.DBConn;
+
+public class BoardDao {
+	private DataSource dataSource;
+	private Connection connection = DBConn.getConnection();
+	{
+		// 1. conn 취득
+		// 2. DML문장 생성 > 실행
+		// 3. (Select) ResultSet 결과집합을 취득
+	}
+	
+	
+}
